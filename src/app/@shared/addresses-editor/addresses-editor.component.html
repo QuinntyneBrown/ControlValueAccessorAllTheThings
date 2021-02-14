@@ -1,7 +1,9 @@
 <form novalidate autocomplete='off' spellcheck='false' [formGroup]='form'>
-    <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput placeholder='Name'
-        formControlName='name' required>
-    </mat-form-field>
+
+    <div>
+        {{ controls.length}}
+    </div>
+    <div *ngFor="let control of controls">
+        <app-address-editor [formControl]="control"></app-address-editor>
+    </div>
 </form>

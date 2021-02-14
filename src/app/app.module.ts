@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AddressEditorModule } from '@shared/address-editor/address-editor.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AddressesEditorModule } from '@shared/addresses-editor/addresses-editor.module';
 
 @NgModule({
   declarations: [
@@ -10,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     AddressEditorModule,
+    AddressesEditorModule,
     ReactiveFormsModule,
     BrowserModule
   ],

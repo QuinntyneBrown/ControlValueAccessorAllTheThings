@@ -1,11 +1,11 @@
 <div>
-    {{ address.dirty }}
+    {{ addresses.dirty }}
 </div>
 <div>
-    {{ address.touched }}
+    {{ addresses.touched }}
 </div>
 <div>    
-    {{ address.value | json }}
+    {{ addresses.value | json }}
 </div>
 
-<app-address-editor [formControl]="address"></app-address-editor>
+<app-addresses-editor [formControl]="addresses"></app-addresses-editor>

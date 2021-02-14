@@ -7,9 +7,12 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public address: FormControl = new FormControl("");
+  public addresses: FormControl = new FormControl([
+    {street: "21 Jump Street"},
+    {street: "29 Queen Street West"}
+  ]);
 
   ngOnInit() {
-    this.address.patchValue({ name: "!"});
+
   }
 }

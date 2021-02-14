@@ -25,7 +25,10 @@ import { empty, of } from 'rxjs';
 export class AddressesEditorComponent implements ControlValueAccessor,  Validator  {
   validate(control: AbstractControl): ValidationErrors {
     const error = { validate: true };
-      
+    
+
+    // report validity of sub controls
+
     if (!control.value && !control.pristine) {
       return error;
     }
@@ -33,17 +36,20 @@ export class AddressesEditorComponent implements ControlValueAccessor,  Validato
     return null as any;
   }
   
-  public form;
+  public form: FormGroup = new FormGroup({})
 
   public _originalValue: any[];
+
+  public get controls(): AbstractControl[]  {
+    return Object.keys(this.form.controls).map(x => this.form.controls[x]);
+  }
   
   writeValue(obj: any): void {   
     if(obj && Array.isArray(obj)) {
-
-      const i = 0;
-
+      let i = 0;
       this.form = obj.reduce((x: FormGroup, y) => {
-        x.addControl(`ctrl_${i}`,new FormControl(y))
+        x.addControl(`ctrl_${i++}`,new FormControl(y));  
+        return x;
       }, new FormGroup({ }));
 
       this._originalValue = this.form.value;
@@ -64,13 +70,13 @@ export class AddressesEditorComponent implements ControlValueAccessor,  Validato
       })
     )
     .subscribe(fn);
-
-    // subscribe to sub controls?
   }
   
-  registerOnTouched(fn: any): void {
-    // if any of the controls are touched the touch
+  public onTouched = () => {
+
   }
+
+  registerOnTouched(fn: any): void { this.onTouched = fn; }
 
   setDisabledState?(isDisabled: boolean): void {
     isDisabled ? this.form.disable() : this.form.enable();
