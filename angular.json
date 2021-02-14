@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "ControlValueAccessorAllTheThings"
+  "defaultProject": "ControlValueAccessorAllTheThings",
+  "cli": {
+    "analytics": false
+  }
 }
