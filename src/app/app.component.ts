@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl } from '@angular/forms';
+
+enum AddressType {
+  Home = "Home",
+  Business = "Business"
+}
 
 @Component({
   selector: 'app-root',
@@ -7,18 +12,18 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  // public addresses: FormControl = new FormControl([
-  //   {street: "21 Jump Street"},
-  //   {street: "29 Queen Street West"},
-  //   null
-  // ]);
 
-  addresses: FormArray = new FormArray([
-    new FormControl({street: "21 Jump Street"})
-  ])
-
+  addresses: FormArray = new FormArray([]);
 
   ngOnInit() {
+    
+    const lookup = {
+      "Home": { street: "21 Jump Street" }
+    };
 
+    this.addresses = Object.keys(AddressType).reduce((x,y) => {
+      x.push(new FormControl(lookup[y]))
+      return x;
+    }, new FormArray([]))
   }
 }
