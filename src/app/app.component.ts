@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +7,16 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public addresses: FormControl = new FormControl([
-    {street: "21 Jump Street"},
-    {street: "29 Queen Street West"}
-  ]);
+  // public addresses: FormControl = new FormControl([
+  //   {street: "21 Jump Street"},
+  //   {street: "29 Queen Street West"},
+  //   null
+  // ]);
+
+  addresses: FormArray = new FormArray([
+    new FormControl({street: "21 Jump Street"})
+  ])
+
 
   ngOnInit() {
 

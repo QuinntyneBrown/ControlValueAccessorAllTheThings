@@ -1,9 +1,0 @@
-<form novalidate autocomplete='off' spellcheck='false' [formGroup]='form'>
-
-    <div>
-        {{ controls.length}}
-    </div>
-    <div *ngFor="let control of controls">
-        <app-address-editor [formControl]="control"></app-address-editor>
-    </div>
-</form>

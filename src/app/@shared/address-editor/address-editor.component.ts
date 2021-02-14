@@ -1,5 +1,7 @@
-import { Component, ElementRef, forwardRef } from '@angular/core';
+import { Component, ElementRef, forwardRef, OnDestroy } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-address-editor',
@@ -18,7 +20,10 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALID
     }       
   ]
 })
-export class AddressEditorComponent implements ControlValueAccessor,  Validator  {
+export class AddressEditorComponent implements ControlValueAccessor,  Validator, OnDestroy  {
+
+  private readonly _destroyed$: Subject<void> = new Subject();
+
   validate(control: AbstractControl): ValidationErrors {
     const error = { validate: true };
       
@@ -31,6 +36,9 @@ export class AddressEditorComponent implements ControlValueAccessor,  Validator 
   
   public form = new FormGroup({
     street: new FormControl(null, [Validators.required]),
+    city: new FormControl(null, [Validators.required]),
+    province: new FormControl(null, [Validators.required]),
+    postalCode: new FormControl(null, [Validators.required]),
   });
 
   constructor(private _elementRef: ElementRef) {
@@ -45,6 +53,9 @@ export class AddressEditorComponent implements ControlValueAccessor,  Validator 
 
   registerOnChange(fn: any): void {    
     this.form.valueChanges
+    .pipe(
+      takeUntil(this._destroyed$)
+    )
     .subscribe(fn);
   }
   
@@ -58,5 +69,10 @@ export class AddressEditorComponent implements ControlValueAccessor,  Validator 
 
   setDisabledState?(isDisabled: boolean): void {
     isDisabled ? this.form.disable() : this.form.enable();
+  }
+
+  ngOnDestroy() {
+    this._destroyed$.next();
+    this._destroyed$.complete();
   }
 }

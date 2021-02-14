@@ -8,4 +8,8 @@
     {{ addresses.value | json }}
 </div>
 
-<app-addresses-editor [formControl]="addresses"></app-addresses-editor>
+
+<div *ngFor="let control of addresses.controls; index as i">
+    <app-address-editor [formControl]="addresses.controls[i]" ></app-address-editor>
+</div>
+    
