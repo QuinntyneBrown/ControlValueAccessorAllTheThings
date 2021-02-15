@@ -1,7 +1,7 @@
 import { Component, ElementRef, forwardRef, OnDestroy } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { fromEvent, Subject } from 'rxjs';
+import { takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-address-editor',
@@ -63,10 +63,17 @@ export class AddressEditorComponent implements ControlValueAccessor,  Validator,
     .subscribe(fn);
   }
   
+
   registerOnTouched(fn: any): void {  
-    this._elementRef.nativeElement.querySelectorAll("input").forEach(
+
+    this._elementRef.nativeElement.querySelectorAll("*").forEach(
       (element: HTMLElement) => {
-        element.addEventListener("blur", fn.bind(this));
+        fromEvent(element,"blur")
+        .pipe(
+          takeUntil(this._destroyed$),
+          tap(x => fn())
+        ).subscribe();
+
       }
     )    
   }
