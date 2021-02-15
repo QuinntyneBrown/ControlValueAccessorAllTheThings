@@ -25,13 +25,11 @@ export class AddressEditorComponent implements ControlValueAccessor,  Validator,
   private readonly _destroyed$: Subject<void> = new Subject();
 
   validate(control: AbstractControl): ValidationErrors {
-    if(this.form.valid)
-      return null;
-
-    return Object.keys(this.form.controls).reduce((x,y) => { 
-
+    return this.form.valid 
+    ? null
+    : Object.keys(this.form.controls).reduce((x,y) => { 
       const errors = {...x};
-
+      
       const controlErrors = this.form.controls[y].errors;
 
       if (controlErrors) {
@@ -39,8 +37,7 @@ export class AddressEditorComponent implements ControlValueAccessor,  Validator,
       }
       
       return errors;
-
-    }, { })      
+    }, { });      
   }
   
   public form = new FormGroup({

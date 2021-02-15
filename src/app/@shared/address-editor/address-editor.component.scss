@@ -1,3 +1,14 @@
 :host {
     display: block;
+    form {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(4,1fr);
+        padding: 20px;
+    }
+
+    input {
+        line-height: 20px;
+        padding:10px;
+    }
 }

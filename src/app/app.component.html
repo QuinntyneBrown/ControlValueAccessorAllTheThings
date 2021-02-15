@@ -1,21 +1,29 @@
+<h1>Control Value Accessor All The Things</h1>
+
 <div>
     {{ addresses.dirty }}
 </div>
 <div>
     {{ addresses.touched }}
 </div>
-<div>    
-    {{ addresses.valid  }}
-</div>
+
 <div>    
     {{ addresses.value | json }}
+</div>
+
+<div>    
+    {{ addresses.statusChanges | async }}
 </div>
 
 
 <div *ngFor="let control of addresses.controls; index as i">
     <app-address-editor [formControl]="addresses.controls[i]" ></app-address-editor>
     <div>    
+        {{ addresses.controls[i].status  }}
+    </div>
+    <div>    
         {{ addresses.controls[i].errors | json }}
     </div>
 </div>
     
+<button [disabled]="!addresses.valid || !addresses.dirty">Save</button>
