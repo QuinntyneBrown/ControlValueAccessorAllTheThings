@@ -1,6 +1,10 @@
 # ControlValueAccessorAllTheThings
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.1.
+Angular Control Value Accessor Experiments
+
+## Give a Star! :star:
+
+If you like or are using this project to learn or start your solution, please give it a star. Thanks!
 
 ## Development server
 
