@@ -5,11 +5,17 @@
     {{ addresses.touched }}
 </div>
 <div>    
+    {{ addresses.valid  }}
+</div>
+<div>    
     {{ addresses.value | json }}
 </div>
 
 
 <div *ngFor="let control of addresses.controls; index as i">
     <app-address-editor [formControl]="addresses.controls[i]" ></app-address-editor>
+    <div>    
+        {{ addresses.controls[i].errors | json }}
+    </div>
 </div>
     

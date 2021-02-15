@@ -25,13 +25,22 @@ export class AddressEditorComponent implements ControlValueAccessor,  Validator,
   private readonly _destroyed$: Subject<void> = new Subject();
 
   validate(control: AbstractControl): ValidationErrors {
-    const error = { validate: true };
+    if(this.form.valid)
+      return null;
+
+    return Object.keys(this.form.controls).reduce((x,y) => { 
+
+      const errors = {...x};
+
+      const controlErrors = this.form.controls[y].errors;
+
+      if (controlErrors) {
+        errors[y] = controlErrors;
+      }
       
-    if (!control.value && !control.pristine) {
-      return error;
-    }
-    
-    return null as any;
+      return errors;
+
+    }, { })      
   }
   
   public form = new FormGroup({
@@ -41,13 +50,11 @@ export class AddressEditorComponent implements ControlValueAccessor,  Validator,
     postalCode: new FormControl(null, [Validators.required]),
   });
 
-  constructor(private _elementRef: ElementRef) {
-    
-  }
+  constructor(private _elementRef: ElementRef) { }
   
-  writeValue(obj: any): void {  
-    if(obj) {
-      this.form.patchValue(obj);
+  writeValue(address: any): void {  
+    if(address) {
+      this.form.patchValue(address);
     }
   }
 
@@ -60,9 +67,9 @@ export class AddressEditorComponent implements ControlValueAccessor,  Validator,
   }
   
   registerOnTouched(fn: any): void {  
-    (this._elementRef.nativeElement as HTMLElement).querySelectorAll("input").forEach(
-      x => {
-        x.addEventListener("blur", fn.bind(this));
+    this._elementRef.nativeElement.querySelectorAll("input").forEach(
+      (element: HTMLElement) => {
+        element.addEventListener("blur", fn.bind(this));
       }
     )    
   }
