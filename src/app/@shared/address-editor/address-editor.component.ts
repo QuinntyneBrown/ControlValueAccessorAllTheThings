@@ -27,13 +27,13 @@ export class AddressEditorComponent implements ControlValueAccessor,  Validator,
   validate(control: AbstractControl): ValidationErrors {
     return this.form.valid 
     ? null
-    : Object.keys(this.form.controls).reduce((x,y) => { 
-      const errors = {...x};
+    : Object.keys(this.form.controls).reduce((accumulatedErrors,formControlName) => { 
+      const errors = {...accumulatedErrors};
       
-      const controlErrors = this.form.controls[y].errors;
+      const controlErrors = this.form.controls[formControlName].errors;
 
       if (controlErrors) {
-        errors[y] = controlErrors;
+        errors[formControlName] = controlErrors;
       }
       
       return errors;
@@ -65,7 +65,6 @@ export class AddressEditorComponent implements ControlValueAccessor,  Validator,
   
 
   registerOnTouched(fn: any): void {  
-
     this._elementRef.nativeElement.querySelectorAll("*").forEach(
       (element: HTMLElement) => {
         fromEvent(element,"blur")
@@ -73,7 +72,6 @@ export class AddressEditorComponent implements ControlValueAccessor,  Validator,
           takeUntil(this._destroyed$),
           tap(x => fn())
         ).subscribe();
-
       }
     )    
   }
