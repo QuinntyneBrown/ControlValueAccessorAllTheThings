@@ -63,7 +63,6 @@ export class AddressEditorComponent implements ControlValueAccessor,  Validator,
     .subscribe(fn);
   }
   
-
   registerOnTouched(fn: any): void {  
     this._elementRef.nativeElement.querySelectorAll("*").forEach(
       (element: HTMLElement) => {

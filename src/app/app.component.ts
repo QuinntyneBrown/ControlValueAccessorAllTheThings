@@ -10,9 +10,10 @@ enum AddressType {
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
+
+  basic: FormControl = new FormControl("Basic", []);
 
   addresses: FormArray = new FormArray([]);
 

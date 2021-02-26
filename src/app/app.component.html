@@ -1,16 +1,43 @@
 <h1>Control Value Accessor All The Things</h1>
 
+<h2>Basic</h2>
+
+<h3>Value</h3>
+<div>
+    {{ basic.value }}
+</div>
+
+<h3>Dirty</h3>
+<div>
+    {{ basic.dirty }}
+</div>
+
+<h3>Touched</h3>
+<div>
+    {{ basic.touched }}
+</div>
+
+<app-input [formControl]="basic"></app-input>
+
+
+<h2>Advanced Address Controls With Validation</h2>
+
+<h3>Dirty</h3>
 <div>
     {{ addresses.dirty }}
 </div>
+
+<h3>Touched</h3>
 <div>
     {{ addresses.touched }}
 </div>
 
+<h3>Value</h3>
 <div>    
     {{ addresses.value | json }}
 </div>
 
+<h3>Status</h3>
 <div>    
     {{ addresses.statusChanges | async }}
 </div>

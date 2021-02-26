@@ -3,13 +3,15 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AddressEditorModule } from '@shared/address-editor/address-editor.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InputModule } from '@shared/input/input.module';
 
 @NgModule({
   declarations: [
-    AppComponent   
+    AppComponent
   ],
   imports: [
     AddressEditorModule,
+    InputModule,
     ReactiveFormsModule,
     BrowserModule
   ],
